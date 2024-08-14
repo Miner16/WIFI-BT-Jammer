@@ -1,8 +1,3 @@
-
-![smoochieeBLEheaderIMG](https://github.com/smoochiee/Ble-jammer/assets/30816448/8c160045-5e4c-4ad4-ae91-471beade94ba)
-
-
- 
  **WARNING!!! JAMMING IS ILLEGAL**
  ---
 
@@ -17,15 +12,15 @@
 
 
 ---
-## REQUIRED DEVICE AND MODULE:
-1. `1pc OR 2pcs NRF24`
+## REQUIRED DEVICES:
+1. `1 or 2 NRF24`
 - ![nrf24l01](https://github.com/smoochiee/Ble-jammer/assets/30816448/c370e76d-d518-409a-ba87-cb087183958c)
 
-2. `1pc ESP32` NOTE... YOU CAN USE A `NANO OR MICRO` BUT ESP32 ARE CHEAP ALMOST THE SAME PRICE AS `ARDUINOS`...LOL
+2. `1pc ESP32` OR `ARDUINO`
 - ![esp32](https://github.com/smoochiee/Ble-jammer/assets/30816448/840c5d23-a6cd-4c9b-90b5-911c3d29d8e4)
 
 
-3. `10UF-100UF CAPACITOR DEPEND ON YOUR NRF` 
+3. `10UF Capacitor, not required` 
 - ![capacitor](https://github.com/smoochiee/Ble-jammer/assets/30816448/7165fcb1-bb05-4aa4-8dee-5640118b2673)
 
 ---
@@ -33,13 +28,12 @@
 
  ## PINS TO ATTACH NRF24L01 TO ESP32
 
-### FOR DUAL/TWO NRF24L01 
+### FOR DUAL NRF24
 + ` HSPI= SCK = 14, MISO = 12, MOSI = 13, CS = 15 , CE = 16`
 + ` VSPI= SCK = 18, MISO =19, MOSI = 23 ,CS =21 ,CE = 22`
 
-### FOR SINGLE/ONE NRF24L01 YOU CAN CHOOSE BETWEEN HSPI OR VSPI 
+### FOR SINGLE NRF24
  - `VSPI= SCK = 18, MISO =19, MOSI = 23 ,CS =21 ,CE = 22`
-- `HSPI= SCK = 14, MISO = 12, MOSI = 13, CS = 15 , CE = 16` 
 
 ---
 ## WIRING DIAGRAM
@@ -48,7 +42,7 @@
 ### NRF24L01 PINS
 - ![NRF24L01 PIN](https://github.com/smoochiee/Ble-jammer/assets/30816448/e41779d4-565a-4044-9b88-c0acbea0e93e)
 
-### ESP32 PINS WHERE YOU ATTACH YOUR `NRF24` AND `SWITCH `
+### ESP32 PINS WHERE YOU ATTACH YOUR `NRF24`
 - ![32](https://github.com/smoochiee/Ble-jammer/assets/30816448/ba7c2991-1542-4296-8b8c-8011c2bc8e77)
 
 
@@ -98,62 +92,3 @@
 * DRONE 2.4GHZ 1-125 SO YOU NEED TO EDIT CODE TO HOPE 125 CHANNELS
 * YOU CAN EDIT PAYLOAD SIZE DIRECTLY ON RF24 LIBRARY  `RF24.CPP LINE # 1972`
 ```
-/****************************************************************************/
-void RF24::startConstCarrier(rf24_pa_dbm_e level, uint8_t channel)
-{
-    stopListening();
-    write_register(RF_SETUP, read_register(RF_SETUP) | _BV(CONT_WAVE) | _BV(PLL_LOCK));
-    if (isPVariant()) {
-        setAutoAck(0);
-        setRetries(0, 0);
-        uint8_t dummy_buf[5];
-        for (uint8_t i = 0; i < 5; ++i)
-            dummy_buf[i] = 0x00;
-
-        // use write_register() instead of openWritingPipe() to bypass
-        // truncation of the address with the current RF24::addr_width value
-        write_register(TX_ADDR, reinterpret_cast<uint8_t*>(&dummy_buf), 5);
-        flush_tx(); // so we can write to top level
-
-        // use write_register() instead of write_payload() to bypass
-        // truncation of the payload with the current RF24::payload_size value
-        write_register(W_TX_PAYLOAD, reinterpret_cast<const uint8_t*>(&dummy_buf), 5);
-
-        disableCRC();
-    }
-    setPALevel(level);
-    setChannel(channel);
-    IF_SERIAL_DEBUG(printf_P(PSTR("RF_SETUP=%02x\r\n"), read_register(RF_SETUP)));
-    ce(HIGH);
-    if (isPVariant()) {
-        delay(1); // datasheet says 1 ms is ok in this instance
-        ce(LOW);
-        reUseTX();
-    }
-}
-
-/****************************************************************************/
-
-```
-
----
-
-
-
-### You can [Buy complete built here](https://shp.ee/dluz3o2) (for Ph user only)
-
-### You can  Buy [Pcb only](https://shp.ee/cxkpjob) (for Ph user only)
-
----
-# DONATION
-**If you like you can donate to MY PAYPAL ACCOUNT :**
-
-
-[PAYPAL](https://paypal.me/smoochieelee?country.x=PH&locale.x=en_US)
-or
-[GCASH](https://github.com/smoochiee/Ble-jammer/blob/main/GCash-MyQR-16032024181536.PNG.jpg)
-
-# SPECIAL THANKS FOR DONATORS
-  * [ATOMNFT](https://github.com/ATOMNFT) - HEADER AND DONATIONS
-  * PARROTSTORE - DONATIONS
-
