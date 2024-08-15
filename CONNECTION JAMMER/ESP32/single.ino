@@ -1,9 +1,7 @@
 #include <SPI.h>
 #include <nRF24L01.h>
 #include <RF24.h>
-#define CE1_PIN 22
-#define CSN1_PIN 21
-RF24 radio(CE1_PIN, CSN1_PIN);
+RF24 radio(22, 21);
 
 void setup() {
   radio.begin();
